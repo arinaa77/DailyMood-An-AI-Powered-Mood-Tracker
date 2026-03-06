@@ -1,7 +1,7 @@
 // US-1: Mood Selection (Issue #2) · US-2: Notes (Issue #3)
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { emojiFromScore, labelFromScore } from '@/lib/moodUtils';
 
 // ----- constants -------------------------------------------------------
@@ -15,15 +15,7 @@ const LOW_CHAR_THRESHOLD = 50;
 const MOOD_SCORES = [5, 4, 3, 2, 1] as const;
 type MoodScore = (typeof MOOD_SCORES)[number];
 
-/** Picked once on mount so the placeholder doesn't jump on re-render. */
-const NOTE_PLACEHOLDERS = [
-  "Share what made today uniquely yours… ✨",
-  "Any little moments worth remembering? 💭",
-  "Tell me what's going on in that head of yours 🌿",
-  "Even tiny thoughts count — what happened today? 🌙",
-  "Big day, small day, in-between day — capture it here 📝",
-  "Something good? Something hard? Either way, I'm listening 🫶",
-];
+const NOTE_PLACEHOLDER = "What's on your mind?";
 
 // ----- prop types -------------------------------------------------------
 interface MoodPickerProps {
@@ -49,10 +41,6 @@ export default function MoodPicker({
   const [loading, setLoading] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
 
-  const placeholder = useMemo(
-    () => NOTE_PLACEHOLDERS[Math.floor(Math.random() * NOTE_PLACEHOLDERS.length)],
-    [],
-  );
 
   const charsRemaining = MAX_NOTE_LENGTH - note.length;
   const isLowChars = charsRemaining <= LOW_CHAR_THRESHOLD;
@@ -178,7 +166,7 @@ export default function MoodPicker({
                 id="mood-note"
                 value={note}
                 onChange={handleNoteChange}
-                placeholder={placeholder}
+                placeholder={NOTE_PLACEHOLDER}
                 rows={3}
                 maxLength={MAX_NOTE_LENGTH}
                 aria-describedby="char-counter"
