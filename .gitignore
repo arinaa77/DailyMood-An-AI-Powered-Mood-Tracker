@@ -1,0 +1,26 @@
+# dependencies
+node_modules/
+
+# environment variables — never commit these
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Next.js build output
+.next/
+out/
+
+# Vercel
+.vercel/
+
+# test coverage
+coverage/
+
+# macOS
+.DS_Store
+
+# editor
+.vscode/
+.idea/
