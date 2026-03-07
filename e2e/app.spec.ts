@@ -217,22 +217,22 @@ test.describe('Insights page', () => {
 
   test('renders time-range toggle buttons', async ({ page }) => {
     await page.goto('/insights');
-    await expect(page.getByRole('button', { name: '7 days' })).toBeVisible();
-    await expect(page.getByRole('button', { name: '30 days' })).toBeVisible();
-    await expect(page.getByRole('button', { name: '90 days' })).toBeVisible();
+    await expect(page.getByRole('button', { name: '7d' })).toBeVisible();
+    await expect(page.getByRole('button', { name: '30d' })).toBeVisible();
+    await expect(page.getByRole('button', { name: '90d' })).toBeVisible();
   });
 
   test('time-range buttons are toggleable', async ({ page }) => {
     await page.goto('/insights');
-    await page.getByRole('button', { name: '7 days' }).click();
-    await expect(page.getByRole('button', { name: '7 days' })).toHaveAttribute(
+    await page.getByRole('button', { name: '7d' }).click();
+    await expect(page.getByRole('button', { name: '7d' })).toHaveAttribute(
       'aria-pressed', 'true',
     );
   });
 
-  test('shows the AI Insights card placeholder', async ({ page }) => {
+  test('shows the Personal Records card', async ({ page }) => {
     await page.goto('/insights');
-    await expect(page.getByText('AI Insights')).toBeVisible();
+    await expect(page.getByText('Personal Records')).toBeVisible();
   });
 });
 
