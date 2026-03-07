@@ -35,7 +35,7 @@ export default function EntryDetail({ entry, onEdit, onDelete }: EntryDetailProp
           <button
             type="button"
             onClick={onEdit}
-            className="text-xs text-indigo-600 font-medium hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded px-1"
+            className="text-xs text-sky-600 font-medium hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 rounded px-1"
           >
             Edit
           </button>

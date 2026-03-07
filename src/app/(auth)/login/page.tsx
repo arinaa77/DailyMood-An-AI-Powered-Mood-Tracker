@@ -34,27 +34,27 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-100 via-purple-50 to-indigo-100 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-100 via-blue-50 to-sky-100 flex items-center justify-center p-4">
       <div className="w-full max-w-sm">
 
         {/* Card */}
         <div className="bg-white rounded-3xl shadow-xl overflow-hidden">
 
           {/* Gradient hero section */}
-          <div className="bg-gradient-to-br from-violet-500 via-purple-600 to-indigo-600 px-8 pt-10 pb-8 text-center relative overflow-hidden">
+          <div className="bg-gradient-to-br from-sky-300 via-blue-300 to-cyan-300 px-8 pt-10 pb-8 text-center relative overflow-hidden">
             {/* Decorative circles */}
-            <div className="absolute -top-6 -right-6 w-24 h-24 rounded-full bg-white/10" />
-            <div className="absolute -bottom-4 -left-4 w-16 h-16 rounded-full bg-white/10" />
+            <div className="absolute -top-6 -right-6 w-24 h-24 rounded-full bg-white/30" />
+            <div className="absolute -bottom-4 -left-4 w-16 h-16 rounded-full bg-white/30" />
 
             <div className="relative">
               <div
-                className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-sm text-3xl mb-4 shadow-inner"
+                className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-sky-100/60 backdrop-blur-sm text-3xl mb-4 shadow-sm"
                 aria-hidden="true"
               >
                 ✨
               </div>
-              <h1 className="text-2xl font-bold text-white tracking-tight">DailyMood</h1>
-              <p className="text-violet-200 text-sm mt-1">
+              <h1 className="text-2xl font-bold text-sky-900 tracking-tight">DailyMood</h1>
+              <p className="text-sky-700 text-sm mt-1">
                 {isSignUp ? 'Start your mood journey' : 'Welcome back'}
               </p>
             </div>
@@ -73,7 +73,7 @@ export default function LoginPage() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full rounded-xl border border-gray-200 bg-gray-50 px-3.5 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:bg-white focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-1 transition-all duration-150"
+                  className="w-full rounded-xl border border-gray-200 bg-gray-50 px-3.5 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:bg-white focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-1 transition-all duration-150"
                   placeholder="you@example.com"
                 />
               </div>
@@ -89,7 +89,7 @@ export default function LoginPage() {
                   minLength={6}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full rounded-xl border border-gray-200 bg-gray-50 px-3.5 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:bg-white focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-1 transition-all duration-150"
+                  className="w-full rounded-xl border border-gray-200 bg-gray-50 px-3.5 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:bg-white focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-1 transition-all duration-150"
                   placeholder="••••••••"
                 />
               </div>
@@ -103,7 +103,7 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-2.5 rounded-xl font-semibold text-sm bg-gradient-to-r from-violet-500 to-purple-600 hover:from-violet-600 hover:to-purple-700 text-white shadow-md shadow-violet-200 active:scale-[0.98] transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2 mt-1"
+                className="w-full py-2.5 rounded-xl font-semibold text-sm bg-gradient-to-r from-sky-400 to-blue-400 hover:from-sky-500 hover:to-blue-500 text-white shadow-md shadow-sky-200 active:scale-[0.98] transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 mt-1"
               >
                 {loading ? 'Please wait…' : isSignUp ? 'Create account' : 'Sign in'}
               </button>
@@ -114,7 +114,7 @@ export default function LoginPage() {
               <button
                 type="button"
                 onClick={() => { setIsSignUp(!isSignUp); setError(null); }}
-                className="text-violet-600 font-medium hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 rounded"
+                className="text-sky-600 font-medium hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 rounded"
               >
                 {isSignUp ? 'Sign in' : 'Sign up'}
               </button>

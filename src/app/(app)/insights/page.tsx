@@ -68,9 +68,9 @@ export default function InsightsPage() {
               aria-pressed={range === days}
               className={[
                 'px-3 py-1 rounded-full text-xs font-semibold transition-all duration-150',
-                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500',
+                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500',
                 range === days
-                  ? 'bg-white text-violet-600 shadow-sm'
+                  ? 'bg-white text-sky-600 shadow-sm'
                   : 'text-gray-500 hover:text-gray-700',
               ].join(' ')}
             >
@@ -92,11 +92,11 @@ export default function InsightsPage() {
           {/* AI Insights card */}
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
             {/* Top accent */}
-            <div className="h-1 bg-gradient-to-r from-violet-400 via-purple-500 to-fuchsia-400" />
+            <div className="h-1 bg-gradient-to-r from-sky-300 via-blue-300 to-cyan-300" />
             <div className="p-6">
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center text-sm shadow-sm" aria-hidden="true">
+                  <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-sky-400 to-blue-400 flex items-center justify-center text-sm shadow-sm" aria-hidden="true">
                     ✨
                   </div>
                   <div>
@@ -104,7 +104,7 @@ export default function InsightsPage() {
                     <p className="text-xs text-gray-400">Powered by Claude</p>
                   </div>
                 </div>
-                <span className="text-xs bg-violet-50 text-violet-600 border border-violet-100 px-2.5 py-1 rounded-full font-medium">
+                <span className="text-xs bg-sky-50 text-sky-600 border border-sky-100 px-2.5 py-1 rounded-full font-medium">
                   Coming soon
                 </span>
               </div>
@@ -113,7 +113,7 @@ export default function InsightsPage() {
                 <div>
                   <p className="text-sm text-gray-600 mb-4">
                     Log{' '}
-                    <span className="font-semibold text-violet-600">
+                    <span className="font-semibold text-sky-600">
                       {5 - filteredEntries.length} more{' '}
                       {5 - filteredEntries.length === 1 ? 'entry' : 'entries'}
                     </span>{' '}
@@ -122,7 +122,7 @@ export default function InsightsPage() {
                   <div className="space-y-1.5">
                     <div className="w-full bg-gray-100 rounded-full h-2 overflow-hidden">
                       <div
-                        className="bg-gradient-to-r from-violet-400 to-purple-500 h-2 rounded-full transition-all duration-500"
+                        className="bg-gradient-to-r from-sky-300 to-blue-400 h-2 rounded-full transition-all duration-500"
                         style={{ width: `${progress * 100}%` }}
                         aria-label={`${filteredEntries.length} of 5 entries`}
                       />

@@ -58,7 +58,7 @@ export default function CalendarGrid({
           {format(month, 'MMMM yyyy')}
         </h2>
         {monthEntryCount > 0 && (
-          <span className="text-xs bg-indigo-100 text-indigo-700 font-medium px-2.5 py-1 rounded-full">
+          <span className="text-xs bg-sky-100 text-sky-700 font-medium px-2.5 py-1 rounded-full">
             {monthEntryCount} {monthEntryCount === 1 ? 'entry' : 'entries'}
           </span>
         )}
@@ -97,13 +97,13 @@ export default function CalendarGrid({
               className={[
                 'relative flex flex-col items-center justify-center rounded-xl',
                 'w-full aspect-square text-xs transition-all duration-150',
-                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500',
+                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500',
                 !isCurrentMonth
                   ? 'opacity-20 cursor-default'
                   : isSelected
-                  ? 'bg-indigo-500 text-white shadow-md'
+                  ? 'bg-sky-500 text-white shadow-md'
                   : isTodayDay
-                  ? 'bg-indigo-100 text-indigo-700 font-semibold'
+                  ? 'bg-sky-100 text-sky-700 font-semibold'
                   : 'hover:bg-gray-50 text-gray-700',
               ].join(' ')}
             >

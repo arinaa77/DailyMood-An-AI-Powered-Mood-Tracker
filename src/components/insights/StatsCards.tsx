@@ -9,9 +9,9 @@ interface StatsCardsProps {
 }
 
 const CARD_STYLES = [
-  { accent: 'from-violet-500 to-purple-600', bg: 'bg-violet-50', text: 'text-violet-600' },
+  { accent: 'from-sky-400 to-blue-400', bg: 'bg-sky-50', text: 'text-sky-600' },
   { accent: 'from-pink-400 to-rose-500',     bg: 'bg-pink-50',   text: 'text-pink-600'   },
-  { accent: 'from-indigo-400 to-blue-500',   bg: 'bg-indigo-50', text: 'text-indigo-600' },
+  { accent: 'from-sky-300 to-blue-400',   bg: 'bg-sky-50', text: 'text-sky-600' },
 ];
 
 const CARD_LABELS = ['Average Mood', 'Top Mood', 'Entries'];

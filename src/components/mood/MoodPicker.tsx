@@ -71,7 +71,7 @@ export default function MoodPicker({
       <div className="bg-white rounded-3xl shadow-xl overflow-hidden">
 
           {/* Gradient top accent stripe */}
-          <div className="h-1.5 bg-gradient-to-r from-violet-400 via-purple-500 to-fuchsia-400" />
+          <div className="h-1.5 bg-gradient-to-r from-sky-300 via-blue-300 to-cyan-300" />
 
           <div className="p-7">
 
@@ -110,14 +110,14 @@ export default function MoodPicker({
                         'w-12 h-12 sm:w-16 sm:h-16 min-w-[44px] min-h-[44px]',
                         'transition-all duration-150 ease-in-out',
                         'focus-visible:outline-none focus-visible:ring-2',
-                        'focus-visible:ring-violet-500 focus-visible:ring-offset-2',
+                        'focus-visible:ring-sky-500 focus-visible:ring-offset-2',
                         isSelected
                           ? [
-                              'ring-2 ring-violet-500 scale-110',
-                              'bg-violet-50',
+                              'ring-2 ring-sky-500 scale-110',
+                              'bg-sky-50',
                               'shadow-[0_0_0_4px_rgba(139,92,246,0.15)]',
                             ].join(' ')
-                          : 'hover:scale-105 hover:bg-gray-50 hover:ring-1 hover:ring-violet-200',
+                          : 'hover:scale-105 hover:bg-gray-50 hover:ring-1 hover:ring-sky-200',
                       ].join(' ')}
                     >
                       <span className="text-2xl sm:text-3xl leading-none" aria-hidden="true">
@@ -136,7 +136,7 @@ export default function MoodPicker({
                 {selectedMood !== null && (
                   <p className="text-sm text-gray-500">
                     You&apos;re feeling{' '}
-                    <span className="font-semibold text-violet-600">
+                    <span className="font-semibold text-sky-600">
                       {labelFromScore(selectedMood)}
                     </span>{' '}
                     <span aria-hidden="true">{emojiFromScore(selectedMood)}</span>
@@ -158,7 +158,7 @@ export default function MoodPicker({
                 >
                   Your note
                 </label>
-                <span className="text-xs text-violet-500 bg-violet-50 px-2 py-0.5 rounded-full font-medium border border-violet-100">
+                <span className="text-xs text-sky-500 bg-sky-50 px-2 py-0.5 rounded-full font-medium border border-sky-100">
                   optional
                 </span>
               </div>
@@ -175,7 +175,7 @@ export default function MoodPicker({
                   'text-sm text-gray-900 placeholder:text-gray-400 resize-none',
                   'hover:border-gray-300',
                   'focus:outline-none focus-visible:ring-2',
-                  'focus-visible:ring-violet-500 focus-visible:ring-offset-1',
+                  'focus-visible:ring-sky-500 focus-visible:ring-offset-1',
                   'transition-all duration-150 ease-in-out',
                 ].join(' ')}
               />
@@ -202,14 +202,14 @@ export default function MoodPicker({
                 'w-full py-3 px-6 rounded-xl font-semibold text-sm',
                 'transition-all duration-150 ease-in-out',
                 'focus-visible:outline-none focus-visible:ring-2',
-                'focus-visible:ring-violet-500 focus-visible:ring-offset-2',
+                'focus-visible:ring-sky-500 focus-visible:ring-offset-2',
                 isSaveDisabled
                   ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
                   : [
-                      'bg-gradient-to-r from-violet-500 to-purple-600',
-                      'hover:from-violet-600 hover:to-purple-700',
+                      'bg-gradient-to-r from-sky-400 to-blue-400',
+                      'hover:from-sky-600 hover:to-blue-700',
                       'active:scale-[0.98]',
-                      'text-white shadow-md shadow-violet-200',
+                      'text-white shadow-md shadow-sky-100',
                     ].join(' '),
               ].join(' ')}
             >
