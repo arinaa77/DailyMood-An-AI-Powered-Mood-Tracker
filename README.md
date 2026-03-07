@@ -19,6 +19,11 @@ Built by Yihan Wang and Kaichen Qu.
 - Success banner on save; form resets automatically
 - Entries update across all open tabs in real time via Supabase Realtime
 
+**Log page sidebar** (desktop):
+- Today's date and logged/not-logged status
+- 7-day mood strip showing this week at a glance
+- Current streak counter and total entry count
+
 ### Entry History : Calendar page
 - Monthly calendar grid : dates with entries show the mood emoji
 - Navigate between months with prev/next arrows
@@ -35,7 +40,7 @@ Built by Yihan Wang and Kaichen Qu.
 - Three stat cards: Average Mood, Top Mood, Entry Count
 - Time-range toggle: 7 days / 30 days / 90 days
 - Bar chart (Recharts) with bars coloured by score: green (4–5), yellow (3), red (1–2)
-- AI Insights card with a progress indicator (unlocks at 5 entries: coming in Sprint 2)
+- Personal Records card: longest streak, best month, favorite mood, total entries logged
 
 ### Authentication
 - Email and password sign-up and sign-in via Supabase Auth
@@ -51,6 +56,7 @@ Built by Yihan Wang and Kaichen Qu.
 | Framework | Next.js 15 (App Router) |
 | Language | TypeScript (strict mode) |
 | Styling | Tailwind CSS 4 |
+| Font | Plus Jakarta Sans (via `next/font/google`) |
 | Database + Auth | Supabase (PostgreSQL + RLS + Realtime) |
 | Charts | Recharts 2 |
 | Dates | date-fns 4 |
@@ -68,10 +74,10 @@ src/
 ├── app/
 │   ├── (auth)/login/         # Sign-in / sign-up page
 │   ├── (app)/
-│   │   ├── layout.tsx        # Shared nav (desktop pill tabs + mobile bottom bar)
-│   │   ├── log/              # Daily mood entry form
+│   │   ├── layout.tsx        # Collapsible left sidebar nav + mobile bottom bar
+│   │   ├── log/              # Daily mood entry form + stats sidebar
 │   │   ├── calendar/         # Monthly history + edit/delete
-│   │   └── insights/         # Stats cards, bar chart, AI placeholder
+│   │   └── insights/         # Stats cards, bar chart, personal records
 │   ├── layout.tsx            # Root layout
 │   └── page.tsx              # Redirects / → /log
 ├── components/
@@ -80,6 +86,7 @@ src/
 │   ├── calendar/EntryDetail.tsx  # Expanded entry with edit/delete
 │   ├── insights/StatsCards.tsx   # Avg mood, top mood, entry count
 │   ├── insights/MoodBarChart.tsx # Recharts bar chart
+│   ├── insights/MilestoneCards.tsx # Personal records (streak, best month, etc.)
 │   └── ui/Modal.tsx              # Reusable dialog
 ├── hooks/
 │   └── useMoodEntries.ts     # All CRUD + Supabase Realtime subscription
@@ -181,7 +188,9 @@ npm run test:coverage
 | `src/components/insights/StatsCards.test.tsx` | 6 |
 | `src/components/insights/MoodBarChart.test.tsx` | 7 |
 | `src/app/(auth)/login/page.test.tsx` | 11 |
-| **Total** | **92** |
+| `src/components/insights/MilestoneCards.test.tsx` | 8 |
+| `src/app/(app)/log/page.test.tsx` | 10 |
+| **Total** | **111** |
 
 Coverage (statements / branches / functions / lines): **97% / 98% / 95% / 97%** : all above the 80% threshold.
 
@@ -328,6 +337,9 @@ interface InsightsResult {
 
 // Stats row : computes average/top mood from entries prop
 <StatsCards entries={MoodEntry[]} />
+
+// Personal records : all-time highlights computed client-side
+<MilestoneCards entries={MoodEntry[]} />
 
 // Reusable dialog : closes on Escape and backdrop click
 <Modal open={boolean} onClose={() => void} title={string}>
