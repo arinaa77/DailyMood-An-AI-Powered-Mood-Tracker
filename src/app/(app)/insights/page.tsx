@@ -9,9 +9,9 @@ import MoodBarChart from '@/components/insights/MoodBarChart';
 import type { DailyMoodSummary } from '@/types';
 
 const RANGES = [
-  { label: '7 days', days: 7 },
-  { label: '30 days', days: 30 },
-  { label: '90 days', days: 90 },
+  { label: '7d',  days: 7  },
+  { label: '30d', days: 30 },
+  { label: '90d', days: 90 },
 ] as const;
 
 type RangeDays = (typeof RANGES)[number]['days'];
@@ -25,7 +25,6 @@ export default function InsightsPage() {
     return entries.filter((e) => new Date(e.created_at) >= cutoff);
   }, [entries, range]);
 
-  // Aggregate to one score per day (average if multiple, but we only allow one entry/day)
   const chartData = useMemo((): DailyMoodSummary[] => {
     const byDate = new Map<string, number[]>();
     filteredEntries.forEach((e) => {
@@ -42,33 +41,47 @@ export default function InsightsPage() {
       }));
   }, [filteredEntries]);
 
-  return (
-    <div className="space-y-6">
-      <h1 className="text-xl font-bold text-gray-900">Insights</h1>
+  const unlocked = filteredEntries.length >= 5;
+  const progress = Math.min(filteredEntries.length / 5, 1);
 
-      {/* Time range toggle */}
-      <div className="flex gap-2" role="group" aria-label="Time range">
-        {RANGES.map(({ label, days }) => (
-          <button
-            key={days}
-            type="button"
-            onClick={() => setRange(days)}
-            aria-pressed={range === days}
-            className={[
-              'px-4 py-1.5 rounded-full text-sm font-medium transition-colors duration-150',
-              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500',
-              range === days
-                ? 'bg-indigo-500 text-white'
-                : 'bg-white text-gray-600 hover:text-gray-900 shadow-sm border border-gray-200',
-            ].join(' ')}
-          >
-            {label}
-          </button>
-        ))}
+  return (
+    <div className="space-y-5">
+
+      {/* Page header */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-xl font-bold text-gray-900">Insights</h1>
+          <p className="text-xs text-gray-400 mt-0.5">How you&apos;ve been feeling</p>
+        </div>
+
+        {/* Time range toggle */}
+        <div
+          className="flex items-center gap-1 bg-gray-100 rounded-full p-1"
+          role="group"
+          aria-label="Time range"
+        >
+          {RANGES.map(({ label, days }) => (
+            <button
+              key={days}
+              type="button"
+              onClick={() => setRange(days)}
+              aria-pressed={range === days}
+              className={[
+                'px-3 py-1 rounded-full text-xs font-semibold transition-all duration-150',
+                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500',
+                range === days
+                  ? 'bg-white text-violet-600 shadow-sm'
+                  : 'text-gray-500 hover:text-gray-700',
+              ].join(' ')}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
       </div>
 
       {loading ? (
-        <div className="bg-white rounded-2xl shadow-md p-12 text-center text-gray-400 text-sm">
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-12 text-center text-gray-400 text-sm">
           Loading…
         </div>
       ) : (
@@ -76,35 +89,55 @@ export default function InsightsPage() {
           <StatsCards entries={filteredEntries} />
           <MoodBarChart data={chartData} />
 
-          {/* AI Insights placeholder — locked until US-5 is implemented */}
-          <div className="bg-white rounded-2xl shadow-md p-6">
-            <div className="flex items-center gap-2 mb-3">
-              <span aria-hidden="true">✨</span>
-              <h2 className="font-semibold text-gray-900">AI Insights</h2>
-              <span className="text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full">
-                Coming soon
-              </span>
-            </div>
-            {filteredEntries.length < 5 ? (
-              <div>
-                <p className="text-sm text-gray-500 mb-3">
-                  Log {5 - filteredEntries.length} more{' '}
-                  {5 - filteredEntries.length === 1 ? 'entry' : 'entries'} to unlock insights!
-                </p>
-                <div className="w-full bg-gray-100 rounded-full h-2">
-                  <div
-                    className="bg-indigo-400 h-2 rounded-full transition-all duration-300"
-                    style={{ width: `${(filteredEntries.length / 5) * 100}%` }}
-                    aria-label={`${filteredEntries.length} of 5 entries`}
-                  />
+          {/* AI Insights card */}
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+            {/* Top accent */}
+            <div className="h-1 bg-gradient-to-r from-violet-400 via-purple-500 to-fuchsia-400" />
+            <div className="p-6">
+              <div className="flex items-start justify-between mb-4">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center text-sm shadow-sm" aria-hidden="true">
+                    ✨
+                  </div>
+                  <div>
+                    <h2 className="text-sm font-semibold text-gray-900">AI Insights</h2>
+                    <p className="text-xs text-gray-400">Powered by Claude</p>
+                  </div>
                 </div>
-                <p className="text-xs text-gray-400 mt-1">{filteredEntries.length} / 5 entries</p>
+                <span className="text-xs bg-violet-50 text-violet-600 border border-violet-100 px-2.5 py-1 rounded-full font-medium">
+                  Coming soon
+                </span>
               </div>
-            ) : (
-              <p className="text-sm text-gray-500">
-                AI analysis will appear here once the feature is enabled.
-              </p>
-            )}
+
+              {!unlocked ? (
+                <div>
+                  <p className="text-sm text-gray-600 mb-4">
+                    Log{' '}
+                    <span className="font-semibold text-violet-600">
+                      {5 - filteredEntries.length} more{' '}
+                      {5 - filteredEntries.length === 1 ? 'entry' : 'entries'}
+                    </span>{' '}
+                    to unlock your first insight!
+                  </p>
+                  <div className="space-y-1.5">
+                    <div className="w-full bg-gray-100 rounded-full h-2 overflow-hidden">
+                      <div
+                        className="bg-gradient-to-r from-violet-400 to-purple-500 h-2 rounded-full transition-all duration-500"
+                        style={{ width: `${progress * 100}%` }}
+                        aria-label={`${filteredEntries.length} of 5 entries`}
+                      />
+                    </div>
+                    <p className="text-xs text-gray-400 text-right">
+                      {filteredEntries.length} / 5 entries
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <p className="text-sm text-gray-500 leading-relaxed">
+                  AI analysis will appear here once the feature is enabled. Your mood patterns, likely triggers, and weekly trends will surface here.
+                </p>
+              )}
+            </div>
           </div>
         </>
       )}

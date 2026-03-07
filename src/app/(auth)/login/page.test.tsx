@@ -58,7 +58,7 @@ describe('LoginPage (integration)', () => {
     const user = userEvent.setup();
     render(<LoginPage />);
     await user.click(screen.getByRole('button', { name: 'Sign up' }));
-    expect(screen.getByText('Create your account')).toBeInTheDocument();
+    expect(screen.getByText('Start your mood journey')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Create account' })).toBeInTheDocument();
   });
 

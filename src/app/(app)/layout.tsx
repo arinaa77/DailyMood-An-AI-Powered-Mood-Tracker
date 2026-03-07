@@ -31,9 +31,14 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           {/* Brand */}
           <Link
             href="/log"
-            className="flex items-center gap-2 shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-lg"
+            className="flex items-center gap-2.5 shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 rounded-lg"
           >
-            <span className="text-xl" aria-hidden="true">✨</span>
+            <span
+              className="inline-flex items-center justify-center w-8 h-8 rounded-xl bg-gradient-to-br from-violet-500 to-purple-600 text-base shadow-sm shadow-violet-200"
+              aria-hidden="true"
+            >
+              ✨
+            </span>
             <span className="font-bold text-gray-900 text-lg tracking-tight hidden sm:block">
               DailyMood
             </span>
