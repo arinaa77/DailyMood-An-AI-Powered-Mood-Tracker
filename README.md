@@ -8,6 +8,9 @@ Built by Yihan Wang and Kaichen Qu.
 
 **Stack:** Next.js 15 · TypeScript · Tailwind CSS · Supabase · Recharts
 
+[![CI](https://github.com/arinaa77/DailyMood-An-AI-Powered-Mood-Tracker/actions/workflows/ci.yml/badge.svg)](https://github.com/arinaa77/DailyMood-An-AI-Powered-Mood-Tracker/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/arinaa77/DailyMood-An-AI-Powered-Mood-Tracker/branch/main/graph/badge.svg)](https://codecov.io/gh/arinaa77/DailyMood-An-AI-Powered-Mood-Tracker)
+
 ---
 
 ## Features
