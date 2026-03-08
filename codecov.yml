@@ -1,0 +1,20 @@
+coverage:
+  status:
+    project:
+      default:
+        target: 80%
+        threshold: 2%
+    patch:
+      default:
+        target: 80%
+
+comment:
+  layout: "reach,diff,flags,files"
+  behavior: default
+
+ignore:
+  - "coverage/**"
+  - "e2e/**"
+  - "*.config.*"
+  - "src/types/**"
+  - "src/lib/supabase/**"
