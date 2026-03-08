@@ -21,7 +21,7 @@ interface TooltipPayload {
   value: number;
 }
 
-function CustomTooltip({
+export function CustomTooltip({
   active,
   payload,
   label,
