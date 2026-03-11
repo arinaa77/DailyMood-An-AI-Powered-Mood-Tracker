@@ -64,15 +64,15 @@ describe('LogPage (integration)', () => {
     expect(matches.length).toBeGreaterThanOrEqual(1);
   });
 
-  it('shows "Not logged yet" when no entry exists for today', () => {
+  it('shows "Pending" when no entry exists for today', () => {
     render(<LogPage />);
-    expect(screen.getByText('Not logged yet')).toBeInTheDocument();
+    expect(screen.getByText('Pending')).toBeInTheDocument();
   });
 
-  it('shows "Entry logged today" when today has an entry', () => {
+  it('shows "Done" when today has an entry', () => {
     mockEntries.push(makeEntry('1', 4, 0));
     render(<LogPage />);
-    expect(screen.getByText('Entry logged today')).toBeInTheDocument();
+    expect(screen.getByText('Done')).toBeInTheDocument();
   });
 
   // ── Sidebar: weekly strip ────────────────────────────────────────────────

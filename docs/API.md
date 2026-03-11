@@ -3,6 +3,7 @@
 DailyMood uses **Supabase** as its backend. All data operations go through the Supabase client SDK, which communicates with a PostgreSQL database via a REST API. There are no custom Express or Next.js route handlers in this version.
 
 This document covers:
+
 1. [Authentication](#1-authentication)
 2. [Database Schema](#2-database-schema)
 3. [Mood Entries : REST Endpoints](#3-mood-entries--rest-endpoints)
@@ -11,6 +12,7 @@ This document covers:
 6. [Utility Functions](#6-utility-functions)
 7. [Component API Contracts](#7-component-api-contracts)
 8. [Error Handling](#8-error-handling)
+9. [Next.js API Routes](#9-nextjs-api-routes)
 
 ---
 
@@ -444,3 +446,28 @@ Closes on `Escape` key and backdrop click. Uses `role="dialog"` and `aria-modal=
 | Unauthenticated request | `proxy.ts` redirects to `/login` before the page loads |
 | Invalid `mood_score` | Database `check` constraint rejects the insert with a Supabase error |
 | Auth error on sign-in | `authError.message` shown in the login form via `role="alert"` |
+
+---
+
+## 9. Next.js API Routes
+
+Custom route handlers in `src/app/api/`. These run server-side and do not require the Supabase client.
+
+### `GET /api/health`
+
+Liveness check. No authentication required. Use for uptime monitoring in production.
+
+```http
+GET /api/health
+```
+
+**Response `200 OK`:**
+
+```json
+{
+  "status": "ok",
+  "timestamp": "2026-03-11T10:00:00.000Z"
+}
+```
+
+**Source:** `src/app/api/health/route.ts`
