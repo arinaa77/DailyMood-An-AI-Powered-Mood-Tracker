@@ -11,6 +11,7 @@ import {
   isSameDay,
   isToday,
   format,
+  parseISO,
 } from 'date-fns';
 import { emojiFromScore } from '@/lib/moodUtils';
 import type { MoodEntry } from '@/types';
@@ -39,7 +40,7 @@ export default function CalendarGrid({
   // Build a map of date-string → entry for O(1) lookup
   const entryByDate = new Map<string, MoodEntry>();
   entries.forEach((entry) => {
-    const dateKey = entry.created_at.slice(0, 10); // "YYYY-MM-DD"
+    const dateKey = format(parseISO(entry.created_at), 'yyyy-MM-dd');
     // Keep the most recent entry per day (entries are sorted newest-first)
     if (!entryByDate.has(dateKey)) {
       entryByDate.set(dateKey, entry);
@@ -47,7 +48,7 @@ export default function CalendarGrid({
   });
 
   const monthEntryCount = entries.filter(
-    (e) => e.created_at.slice(0, 7) === format(month, 'yyyy-MM'),
+    (e) => format(parseISO(e.created_at), 'yyyy-MM') === format(month, 'yyyy-MM'),
   ).length;
 
   return (

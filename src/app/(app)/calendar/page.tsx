@@ -2,7 +2,7 @@
 'use client';
 
 import { useState } from 'react';
-import { format, isSameDay } from 'date-fns';
+import { format, isSameDay, parseISO } from 'date-fns';
 import { useMoodEntries } from '@/hooks/useMoodEntries';
 import CalendarGrid from '@/components/calendar/CalendarGrid';
 import EntryDetail from '@/components/calendar/EntryDetail';
@@ -112,7 +112,7 @@ export default function CalendarPage() {
 
       {/* Empty state */}
       {!loading && entries.filter(
-        (e) => e.created_at.slice(0, 7) === format(month, 'yyyy-MM'),
+        (e) => format(parseISO(e.created_at), 'yyyy-MM') === format(month, 'yyyy-MM'),
       ).length === 0 && (
         <p className="text-center text-sm text-gray-400 mt-6">
           No entries this month. Start logging to see your history.
