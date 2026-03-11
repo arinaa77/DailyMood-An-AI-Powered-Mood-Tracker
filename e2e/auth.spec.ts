@@ -26,7 +26,7 @@ test.describe('Login page', () => {
   test('toggles to sign-up mode', async ({ page }) => {
     await page.goto('/login');
     await page.getByRole('button', { name: 'Sign up' }).click();
-    await expect(page.getByText('Create your account')).toBeVisible();
+    await expect(page.getByText('Start your mood journey')).toBeVisible();
     await expect(page.getByRole('button', { name: 'Create account' })).toBeVisible();
   });
 
@@ -44,14 +44,14 @@ test.describe('Login page', () => {
     await page.getByLabel('Password').fill('badpassword');
     await page.getByRole('button', { name: 'Sign in' }).click();
 
-    await expect(page.getByRole('alert')).toBeVisible();
+    await expect(page.getByRole('alert').first()).toBeVisible();
   });
 
   test('disables the submit button while loading', async ({ page }) => {
     await mockSignInSuccess(page); // reuse helper, override below
     // Delay the response to observe the loading state
     await page.route('**/auth/v1/token**', async (route) => {
-      await page.waitForTimeout(300);
+      await new Promise((resolve) => setTimeout(resolve, 300));
       await route.fulfill({
         status: 200,
         contentType: 'application/json',

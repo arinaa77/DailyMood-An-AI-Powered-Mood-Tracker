@@ -4,6 +4,14 @@ import { NextResponse, type NextRequest } from 'next/server';
 export async function proxy(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request });
 
+  // E2E test bypass: allow Playwright tests to skip server-side auth in dev only.
+  if (
+    process.env.NODE_ENV === 'development' &&
+    request.cookies.get('__e2e_bypass__')?.value === 'e2e-test-bypass'
+  ) {
+    return supabaseResponse;
+  }
+
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,

@@ -3,7 +3,32 @@ import { test, expect, type Page } from '@playwright/test';
 // ── Shared auth + data mocks ──────────────────────────────────────────────
 
 async function mockAuthenticatedSession(page: Page) {
-  // Mock session check (proxy / middleware)
+  // Bypass the server-side middleware auth check in dev (see src/proxy.ts).
+  await page.context().addCookies([
+    { name: '__e2e_bypass__', value: 'e2e-test-bypass', domain: 'localhost', path: '/' },
+  ]);
+
+  // Seed a fake Supabase session cookie so the browser-side Supabase client
+  // (createBrowserClient from @supabase/ssr) finds a valid session and calls
+  // /auth/v1/user to validate it (which is mocked below).
+  // The cookie name is sb-[project-ref]-auth-token; value is "base64-" + base64url(JSON).
+  await page.addInitScript(() => {
+    const session = {
+      access_token: 'mock-access-token',
+      refresh_token: 'mock-refresh-token',
+      expires_at: Math.floor(Date.now() / 1000) + 3600,
+      expires_in: 3600,
+      token_type: 'bearer',
+      user: { id: 'mock-user-id', email: 'test@example.com', role: 'authenticated' },
+    };
+    const b64url = btoa(JSON.stringify(session))
+      .replace(/\+/g, '-')
+      .replace(/\//g, '_')
+      .replace(/=/g, '');
+    document.cookie = `sb-xiehboxjeftktjhitvua-auth-token=base64-${b64url}; path=/; SameSite=Lax`;
+  });
+
+  // Mock client-side session check
   await page.route('**/auth/v1/user', (route) =>
     route.fulfill({
       status: 200,
@@ -155,7 +180,11 @@ test.describe('Navigation', () => {
 
   test('nav bar is visible on the log page', async ({ page }) => {
     await page.goto('/log');
-    await expect(page.getByRole('navigation', { name: 'Main navigation' })).toBeVisible();
+    // Desktop shows the sidebar nav; mobile shows the bottom tab bar.
+    await expect(
+      page.getByRole('navigation', { name: 'Main navigation' })
+        .or(page.getByRole('navigation', { name: 'Mobile navigation' })),
+    ).toBeVisible();
   });
 
   test('can navigate to the Calendar page', async ({ page }) => {
@@ -196,8 +225,8 @@ test.describe('Calendar page', () => {
 
   test('renders a calendar grid with day buttons', async ({ page }) => {
     await page.goto('/calendar');
-    // The grid always has buttons for 1-28+ days of the month
-    const dayButtons = page.getByRole('button', { name: /^\d{1,2}$/ });
+    // Day buttons have aria-labels like "March 1", "March 2", etc.
+    const dayButtons = page.getByRole('button', { name: /^[A-Z][a-z]+ \d{1,2}$/ });
     await expect(dayButtons.first()).toBeVisible();
   });
 });
