@@ -235,6 +235,28 @@ E2E tests mock all Supabase HTTP calls via `page.route()` : no live database or 
 
 ## API Reference
 
+### HTTP Endpoints
+
+| Method | Path          | Auth | Description              |
+|--------|---------------|------|--------------------------|
+| `GET`  | `/api/health` | None | Liveness / health check  |
+
+#### `GET /api/health`
+
+```http
+GET /api/health
+```
+
+**Response `200 OK`:**
+
+```json
+{ "status": "ok", "timestamp": "2026-03-11T10:00:00.000Z" }
+```
+
+No authentication required. Use this endpoint for uptime monitoring.
+
+---
+
 ### Hook: `useMoodEntries`
 
 The primary data layer for the app. Import and use inside any client component.
