@@ -24,3 +24,5 @@ coverage/
 # editor
 .vscode/
 .idea/
+
+test-results/
