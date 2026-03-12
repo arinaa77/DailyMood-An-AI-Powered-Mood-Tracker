@@ -28,10 +28,10 @@ export default function CalendarPage() {
   const [deleteTarget, setDeleteTarget] = useState<MoodEntry | null>(null);
   const [deleteLoading, setDeleteLoading] = useState(false);
 
-  // Find entry for the selected date
-  const selectedEntry = selectedDate
-    ? entries.find((e) => isSameDay(new Date(e.created_at), selectedDate)) ?? null
-    : null;
+  // Find all entries for the selected date
+  const selectedEntries = selectedDate
+    ? entries.filter((e) => isSameDay(new Date(e.created_at), selectedDate))
+    : [];
 
   function prevMonth() {
     setMonth((m) => new Date(m.getFullYear(), m.getMonth() - 1, 1));
@@ -66,7 +66,11 @@ export default function CalendarPage() {
     try {
       await deleteEntry(deleteTarget.id);
       setDeleteTarget(null);
-      setSelectedDate(null);
+      // Only clear selected date if this was the last entry for that day
+      const remainingForDay = entries.filter(
+        (e) => e.id !== deleteTarget.id && selectedDate && isSameDay(new Date(e.created_at), selectedDate)
+      );
+      if (remainingForDay.length === 0) setSelectedDate(null);
     } finally {
       setDeleteLoading(false);
     }
@@ -120,13 +124,19 @@ export default function CalendarPage() {
       )}
 
       {/* Entry detail panel */}
-      {selectedEntry && (
-        <EntryDetail
-          entry={selectedEntry}
-          onEdit={() => openEdit(selectedEntry)}
-          onDelete={() => setDeleteTarget(selectedEntry)}
-        />
+      {selectedDate && selectedEntries.length === 0 && (
+        <div className="bg-white rounded-2xl shadow-md p-6 mt-4 animate-in fade-in slide-in-from-top-2 duration-150">
+          <p className="text-sm text-gray-400 italic text-center">No mood logged for this day.</p>
+        </div>
       )}
+      {selectedEntries.map((entry) => (
+        <EntryDetail
+          key={entry.id}
+          entry={entry}
+          onEdit={() => openEdit(entry)}
+          onDelete={() => setDeleteTarget(entry)}
+        />
+      ))}
 
       {/* Edit modal */}
       <Modal

@@ -229,6 +229,21 @@ test.describe('Calendar page', () => {
     const dayButtons = page.getByRole('button', { name: /^[A-Z][a-z]+ \d{1,2}$/ });
     await expect(dayButtons.first()).toBeVisible();
   });
+
+  test('clicking a date with no entry shows "No mood logged" card', async ({ page }) => {
+    await page.goto('/calendar');
+    // March 10 has no mock entry
+    await page.getByRole('button', { name: 'March 10' }).click();
+    await expect(page.getByText('No mood logged for this day.')).toBeVisible();
+  });
+
+  test('clicking a date with an entry shows the entry detail', async ({ page }) => {
+    await page.goto('/calendar');
+    // March 1 has a mock entry with mood_score 5 (Great)
+    await page.getByRole('button', { name: /March 1/ }).first().click();
+    await expect(page.getByText('Great', { exact: true })).toBeVisible();
+    await expect(page.getByText('Great day!')).toBeVisible();
+  });
 });
 
 // ── Insights page ─────────────────────────────────────────────────────────
