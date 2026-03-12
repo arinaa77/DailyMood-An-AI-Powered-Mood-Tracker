@@ -6,7 +6,15 @@ Log how you feel each day, browse your history on a calendar, and understand you
 
 Built by Yihan Wang and Kaichen Qu.
 
-**[Live Demo](https://daily-mood-an-ai-powered-mood-track.vercel.app)**
+**[Live APP](https://daily-mood-an-ai-powered-mood-track.vercel.app)**
+
+**[Live Demo](https://youtu.be/W4GHSsu0iA0)**
+
+**[BLOG Post](https://dev.to/kelson_qu/building-dailymood-how-we-used-ai-assisted-development-to-ship-a-full-stack-mood-tracker-in-two-411a)**
+
+**[Bluesky post 1](https://bsky.app/profile/arivits.bsky.social/post/3mgvlownt7s2d)**
+
+**[Bluesky post 2](https://bsky.app/profile/did:plc:gzdzu72a6bmcvvfuvgiibcfx/post/3mgvlnhxtm52p)**
 
 **Stack:** Next.js 15 · TypeScript · Tailwind CSS · Supabase · Recharts
 
